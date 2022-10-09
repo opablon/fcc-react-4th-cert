@@ -96,15 +96,15 @@ export default function App() {
       </div>
       <div className="buttons">
         <div className="numbers">
-          <Button id="one" keyValue={"1"} onClick={handleInput} />
-          <Button id="two" keyValue={"2"} onClick={handleInput} />
-          <Button id="three" keyValue={"3"} onClick={handleInput} />
-          <Button id="four" keyValue={"4"} onClick={handleInput} />
-          <Button id="five" keyValue={"5"} onClick={handleInput} />
-          <Button id="six" keyValue={"6"} onClick={handleInput} />
           <Button id="seven" keyValue={"7"} onClick={handleInput} />
           <Button id="eight" keyValue={"8"} onClick={handleInput} />
           <Button id="nine" keyValue={"9"} onClick={handleInput} />
+          <Button id="four" keyValue={"4"} onClick={handleInput} />
+          <Button id="five" keyValue={"5"} onClick={handleInput} />
+          <Button id="six" keyValue={"6"} onClick={handleInput} />
+          <Button id="one" keyValue={"1"} onClick={handleInput} />
+          <Button id="two" keyValue={"2"} onClick={handleInput} />
+          <Button id="three" keyValue={"3"} onClick={handleInput} />
         </div>
         <div className="zeroAndDecimal">
           <Button id="zero" keyValue={"0"} onClick={handleInput} />
