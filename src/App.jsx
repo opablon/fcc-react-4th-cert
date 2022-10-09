@@ -13,7 +13,7 @@ function Button(props) {
   return (
     <>
       <button
-        style={{ width: "40px", height: "40px" }}
+        // style={{ width: "40px", height: "40px" }}
         onClick={() => props.onClick(props.keyValue)}
       >
         {props.keyValue}
@@ -39,7 +39,7 @@ export default function App() {
     setResult("0");
   };
 
-  const handleOperation = (value) => {
+  const handleInput = (value) => {
     if (!isNaN(parseInt(value))) {
       handleNum(value);
     } else if (value === "AC") {
@@ -85,26 +85,42 @@ export default function App() {
   };
 
   return (
-    <>
-      <Display display={input} />
-      <Display id="display" display={result} />
-      <Button id="clear" keyValue={"AC"} onClick={handleOperation} />
-      <Button id="one" keyValue={"1"} onClick={handleOperation} />
-      <Button id="two" keyValue={"2"} onClick={handleOperation} />
-      <Button id="three" keyValue={"3"} onClick={handleOperation} />
-      <Button id="four" keyValue={"4"} onClick={handleOperation} />
-      <Button id="five" keyValue={"5"} onClick={handleOperation} />
-      <Button id="six" keyValue={"6"} onClick={handleOperation} />
-      <Button id="seven" keyValue={"7"} onClick={handleOperation} />
-      <Button id="eight" keyValue={"8"} onClick={handleOperation} />
-      <Button id="nine" keyValue={"9"} onClick={handleOperation} />
-      <Button id="zero" keyValue={"0"} onClick={handleOperation} />
-      <Button id="decimal" keyValue={"."} onClick={handleOperation} />
-      <Button id="add" keyValue={"+"} onClick={handleOperation} />
-      <Button id="subtract" keyValue={"-"} onClick={handleOperation} />
-      <Button id="multiply" keyValue={"x"} onClick={handleOperation} />
-      <Button id="divide" keyValue={"/"} onClick={handleOperation} />
-      <Button id="equals" keyValue={"="} onClick={handleOperation} />
-    </>
+    <div className="calculator">
+      <div className="displays">
+        <div className="input">
+          <Display display={input} />
+        </div>
+        <div className="result">
+          <Display id="display" display={result} />
+        </div>
+      </div>
+      <div className="buttons">
+        <div className="numbers">
+          <Button id="one" keyValue={"1"} onClick={handleInput} />
+          <Button id="two" keyValue={"2"} onClick={handleInput} />
+          <Button id="three" keyValue={"3"} onClick={handleInput} />
+          <Button id="four" keyValue={"4"} onClick={handleInput} />
+          <Button id="five" keyValue={"5"} onClick={handleInput} />
+          <Button id="six" keyValue={"6"} onClick={handleInput} />
+          <Button id="seven" keyValue={"7"} onClick={handleInput} />
+          <Button id="eight" keyValue={"8"} onClick={handleInput} />
+          <Button id="nine" keyValue={"9"} onClick={handleInput} />
+        </div>
+        <div className="zeroAndDecimal">
+          <Button id="zero" keyValue={"0"} onClick={handleInput} />
+          <Button id="decimal" keyValue={"."} onClick={handleInput} />
+        </div>
+        <div className="operators">
+          <Button id="clear" keyValue={"AC"} onClick={handleInput} />
+          <Button id="add" keyValue={"+"} onClick={handleInput} />
+          <Button id="subtract" keyValue={"-"} onClick={handleInput} />
+          <Button id="multiply" keyValue={"x"} onClick={handleInput} />
+          <Button id="divide" keyValue={"/"} onClick={handleInput} />
+        </div>
+        <div className="equal">
+          <Button id="equals" keyValue={"="} onClick={handleInput} />
+        </div>
+      </div>
+    </div>
   );
 }
