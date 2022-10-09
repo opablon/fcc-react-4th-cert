@@ -58,8 +58,13 @@ export default function App() {
       setInput(input + "/");
     } else if (value === "=") {
       setResult(eval(input));
-      setInput(eval(input));
+      setInput(input);
     } else if (value === ".") {
+      let lastPlus = input.lastIndexOf("+");
+      let lastMinus = input.lastIndexOf("-");
+      let lastMultiply = input.lastIndexOf("*");
+      let lastDivide = input.lastIndexOf("/");
+      let lastOp = Math.max(lastPlus, lastMinus, lastMultiply, lastDivide);
       if (input.slice(-1) === ".") {
         return;
       } else if (
@@ -69,9 +74,11 @@ export default function App() {
         input.slice(-1) === "/"
       ) {
         setInput(input + "0.");
-        setResult(eval(input + "0."));
+        // setResult(eval(input + "0."));
+      } else if (input.includes(".", lastOp)) {
+        return;
       } else {
-        setResult(eval(input));
+        // setResult(eval(input));
         setInput(input + ".");
       }
     }
