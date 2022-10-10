@@ -12,10 +12,7 @@ function Display(props) {
 function Button(props) {
   return (
     <>
-      <button
-        // style={{ width: "40px", height: "40px" }}
-        onClick={() => props.onClick(props.keyValue)}
-      >
+      <button onClick={() => props.onClick(props.keyValue)}>
         {props.keyValue}
       </button>
     </>
@@ -29,6 +26,14 @@ export default function App() {
   const handleNum = (number) => {
     if (input === "0") {
       setInput(number);
+    } else if (
+      (input.slice(-1) === "+" ||
+        input.slice(-1) === "-" ||
+        input.slice(-1) === "*" ||
+        input.slice(-1) === "/") &&
+      number === "0"
+    ) {
+      return;
     } else {
       setInput(input + number);
     }
@@ -45,20 +50,85 @@ export default function App() {
     } else if (value === "AC") {
       clearData();
     } else if (value === "+") {
-      setResult(eval(input));
-      setInput(input + "+");
+      if (input.slice(-1) === "+") {
+        return;
+      } else if (
+        input.slice(-1) === "-" ||
+        input.slice(-1) === "*" ||
+        input.slice(-1) === "/"
+      ) {
+        setInput(input.slice(0, -1) + "+");
+      } else if (result !== "0" && input === "0") {
+        setInput(result + "+");
+      } else {
+        // setResult(eval(input));
+        setInput(input + "+");
+      }
     } else if (value === "-") {
-      setResult(eval(input));
-      setInput(input + "-");
+      if (input.slice(-1) === "-") {
+        return;
+      } else if (
+        input.slice(-1) === "+" ||
+        input.slice(-1) === "*" ||
+        input.slice(-1) === "/"
+      ) {
+        setInput(input.slice(0, -1) + "-");
+      } else if (result !== "0" && input === "0") {
+        setInput(result + "-");
+      } else {
+        // setResult(eval(input));
+        setInput(input + "-");
+      }
     } else if (value === "x") {
-      setResult(eval(input));
-      setInput(input + "*");
+      if (input.slice(-1) === "*") {
+        return;
+      } else if (
+        input.slice(-1) === "-" ||
+        input.slice(-1) === "+" ||
+        input.slice(-1) === "/"
+      ) {
+        setInput(input.slice(0, -1) + "*");
+      } else if (result !== "0" && input === "0") {
+        setInput(result + "*");
+      } else {
+        // setResult(eval(input));
+        setInput(input + "*");
+      }
     } else if (value === "/") {
-      setResult(eval(input));
-      setInput(input + "/");
+      if (input.slice(-1) === "/") {
+        return;
+      } else if (
+        input.slice(-1) === "-" ||
+        input.slice(-1) === "*" ||
+        input.slice(-1) === "+"
+      ) {
+        setInput(input.slice(0, -1) + "/");
+      } else if (result !== "0" && input === "0") {
+        setInput(result + "/");
+      } else {
+        // setResult(eval(input));
+        setInput(input + "/");
+      }
     } else if (value === "=") {
-      setResult(eval(input));
-      setInput(input);
+      if (result !== "0" && input === "0") {
+        return;
+      } else if (
+        !(
+          input.slice(-1) === "+" ||
+          input.slice(-1) === "-" ||
+          input.slice(-1) === "*" ||
+          input.slice(-1) === "/"
+        )
+      ) {
+        setResult(parseFloat(eval(input).toFixed(6)));
+        setInput("0");
+      } else {
+        let tempInput = input;
+        setInput("error");
+        setTimeout(() => {
+          setInput(tempInput);
+        }, 1000);
+      }
     } else if (value === ".") {
       let lastPlus = input.lastIndexOf("+");
       let lastMinus = input.lastIndexOf("-");
@@ -74,11 +144,9 @@ export default function App() {
         input.slice(-1) === "/"
       ) {
         setInput(input + "0.");
-        // setResult(eval(input + "0."));
       } else if (input.includes(".", lastOp)) {
         return;
       } else {
-        // setResult(eval(input));
         setInput(input + ".");
       }
     }
